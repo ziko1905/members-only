@@ -1,14 +1,10 @@
 const { Router } = require("express");
 const router = new Router();
-const LocalStrategy = require("passport-local");
 const bcrypt = require("bcryptjs");
-const userDb = require("../models/userDb.js");
+const userDb = require("../models/usersDb");
+const authController = require("../controllers/authController");
 
-const validateFunction = async (username, password, done) => {
-  try {
-  } catch (err) {}
-};
+router.get("/signup", authController.signupGet);
+router.post("signup", authController.signupPost);
 
-const strategy = new LocalStrategy();
-
-router.use();
+module.exports = router;
