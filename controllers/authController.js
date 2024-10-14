@@ -2,6 +2,7 @@ const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const usersDb = require("../models/usersDb");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 require("dotenv").config();
 const SALT = process.env.SALT || 10; //Could be increased for better security
 
@@ -60,7 +61,7 @@ const signupGet = (req, res, next) => {
 
 const signupPost = [
   validateUser,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const errMsgs = errors.array().map((err) => err.msg);
@@ -78,7 +79,11 @@ const signupPost = [
       req.body.admin ? true : false,
     ];
     await usersDb.addUser(...info);
-    res.redirect("/");
+    next();
+  }),
+  passport.authenticate("local", {
+    failureRedirect: "/",
+    successRedirect: "/",
   }),
 ];
 

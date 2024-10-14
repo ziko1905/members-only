@@ -30,8 +30,8 @@ app.use(
     }),
   })
 );
-app.use(passport.session());
 require("./config/passport");
+app.use(passport.session());
 
 app.use(indexRouter);
 app.use(authRouter);
