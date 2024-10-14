@@ -14,8 +14,10 @@ const CREATE_USERS_TABLE = `CREATE TABLE users (
                         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                         full_name VARCHAR ( 255 ),
                         email VARCHAR ( 255 ),
-                        member BOOL,
-                        admin BOOL
+                        password VARCHAR ( 65535),
+                        username VARCHAR ( 255 ),
+                        member BOOLEAN,
+                        admin BOOLEAN
                         );`;
 
 function getSQL() {
