@@ -30,7 +30,6 @@ const validateUser = [
     }),
   body("password").notEmpty().withMessage("Password not included"),
   body("passwordConfirm").custom((value, { req }) => {
-    console.log(typeof value, typeof req.body.password);
     if (value != req.body.password)
       throw new Error("Password and confirm do not match");
     return true;
@@ -65,13 +64,11 @@ const signupPost = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const errMsgs = errors.array().map((err) => err.msg);
-      console.log(errMsgs);
       return res.render("signup", {
         title: "Sign Up",
         errorMsgs: errMsgs,
       });
     }
-    console.log(req.body);
     const info = [
       getFull(req.body.firstName, req.body.lastName),
       req.body.email,
@@ -83,7 +80,6 @@ const signupPost = [
       // req.body.admin ? true : false,
     ];
     await usersDb.addUser(...info);
-    console.log("almost done");
     res.redirect("/");
   }),
 ];
@@ -91,12 +87,10 @@ const signupPost = [
 function getFull() {
   if (arguments.length < 2) throw new Error("Need at least 2 args");
   const full = [...arguments].join(" ");
-  console.log(full);
   return [...arguments].join(" ");
 }
 
 function getUsername(email) {
-  console.log(email, typeof email);
   const prefixArr = email.slice(0, email.indexOf("@")).split(".");
   return prefixArr.join(" ");
 }
