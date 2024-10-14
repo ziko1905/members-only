@@ -7,6 +7,14 @@
 </head>
 <body>
     <h1><%= title %></h1>
+    <% if (locals.errorMsgs) {%>
+        <ul>
+            <% locals.errorMsgs.forEach(msg => { %>
+                <% console.log(locals.errorMsgs) %>
+                <li><%= msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
     <form action="/signup" method="POST">
         <label for="firstName">First Name:</label>
         <input type="text" name="firstName" id="firstName">

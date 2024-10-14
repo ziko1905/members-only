@@ -66,7 +66,10 @@ const signupPost = [
     if (!errors.isEmpty()) {
       const errMsgs = errors.array().map((err) => err.msg);
       console.log(errMsgs);
-      return render("/signup", { errorsMsg: errors.array() });
+      return res.render("signup", {
+        title: "Sign Up",
+        errorMsgs: errMsgs,
+      });
     }
     console.log(req.body);
     const info = [
