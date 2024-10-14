@@ -3,8 +3,8 @@ const app = express();
 const session = require("express-session");
 const passport = require("passport");
 const connect = require("connect-pg-simple")(session);
+const { Pool } = require("pg");
 require("dotenv").config();
-require("./config/passport");
 
 const indexRouter = require("./routes/indexRouter");
 const authRouter = require("./routes/authRouter");
@@ -14,6 +14,7 @@ const messagesRouter = require("./routes/messagesRouter");
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
+app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SECRET,
@@ -22,12 +23,15 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 14,
     },
-    store: new connect(),
+    store: new connect({
+      pool: new Pool({
+        connectionString: process.env.DATABASE_PUBLIC_URL,
+      }),
+    }),
   })
 );
 app.use(passport.session());
-
-app.use(express.urlencoded({ extended: true }));
+require("./config/passport");
 
 app.use(indexRouter);
 app.use(authRouter);
