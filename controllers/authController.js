@@ -74,10 +74,8 @@ const signupPost = [
       req.body.email,
       bcrypt.hashSync(req.body.password, SALT),
       getUsername(req.body.email),
-      true,
-      true,
-      // req.body.member ? true : false,
-      // req.body.admin ? true : false,
+      req.body.member ? true : false,
+      req.body.admin ? true : false,
     ];
     await usersDb.addUser(...info);
     res.redirect("/");

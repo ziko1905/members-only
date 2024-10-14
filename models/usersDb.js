@@ -30,7 +30,6 @@ module.exports.addUser = async (
   member = false,
   admin = false
 ) => {
-  console.log(member, admin);
   await pool.query(
     `INSERT INTO users (full_name, email, password, username, member, admin) VALUES ($1, $2, $3, $4, $5, $6);`,
     [full, email, password, username, member, admin]
