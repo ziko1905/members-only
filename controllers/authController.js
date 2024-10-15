@@ -91,9 +91,15 @@ function loginGet(req, res) {
   if (req.user) {
     return res.render("login", { title: "Log In", logged: true });
   }
+
+  if (req.session.messages) {
+    return res.render("login", {
+      title: "Log In",
+      message: req.session.messages[req.session.messages.length - 1],
+    });
+  }
   res.render("login", {
     title: "Log In",
-    message: req.session.messages[req.session.messages.length - 1],
   });
 }
 
