@@ -6,12 +6,13 @@
     <title><%= title %></title>
 </head>
 <body>
+    <%- include("./partials/navbar.ejs") %>
     <%= title %>
-    <% if (!user) { %>
+    <% if (!locals.user) { %>
         <p>Seems like you are not logged in.</p>
         <a href="/login">Login to see all the messages.</a>
     <% } %>
-    <%  if (user) { %>
+    <%  if (locals.user) { %>
         <p>Some other logic. Logged in btw.</p>
     <% } %>
 </body>
