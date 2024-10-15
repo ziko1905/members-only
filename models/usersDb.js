@@ -42,3 +42,10 @@ module.exports.addUser = async (
 module.exports.makeMember = async (id) => {
   await pool.query("UPDATE users SET member = true WHERE id = $1;", [id]);
 };
+
+module.exports.isMember = async (id) => {
+  const { rows } = await pool.query("SELECT member FROM users WHERE id = $1", [
+    id,
+  ]);
+  return !!rows[0].member;
+};

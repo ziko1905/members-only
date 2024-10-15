@@ -97,6 +97,17 @@ function loginGet(req, res) {
   });
 }
 
+const isMember = async (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+  const member = await usersDb.isMember(req.user.id);
+  if (!member) {
+    return res.redirect("/");
+  }
+  next();
+};
+
 function getFull() {
   if (arguments.length < 2) throw new Error("Need at least 2 args");
   const full = [...arguments].join(" ");
@@ -112,4 +123,5 @@ module.exports = {
   signupGet,
   signupPost,
   loginGet,
+  isMember,
 };
