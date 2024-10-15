@@ -87,6 +87,16 @@ const signupPost = [
   }),
 ];
 
+function loginGet(req, res) {
+  if (req.user) {
+    return res.render("login", { title: "Log In", logged: true });
+  }
+  res.render("login", {
+    title: "Log In",
+    message: req.session.messages[req.session.messages.length - 1],
+  });
+}
+
 function getFull() {
   if (arguments.length < 2) throw new Error("Need at least 2 args");
   const full = [...arguments].join(" ");
@@ -101,4 +111,5 @@ function getUsername(email) {
 module.exports = {
   signupGet,
   signupPost,
+  loginGet,
 };
