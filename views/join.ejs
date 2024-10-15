@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Club</title>
+    <title><% title %></title>
 </head>
 <body>
-    <%= title %>
+    <h1><%= header %></h1>
     <form action="/join" method="POST">
         <label for="passcode">Passcode for Club:</label>
         <input type="text" name="passcode" id="passcode">
