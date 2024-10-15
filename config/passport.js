@@ -11,11 +11,13 @@ const customFields = {
 const validateFunction = async (email, password, done) => {
   try {
     const user = await usersDb.getByEmail(email);
-
     if (!user) {
       return done(null, false, { message: "Invalid email" });
     }
-    if (!bcrypt.compare(user.password, password)) {
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
       return done(null, false, { message: "Invalid password" });
     }
     return done(null, user);
