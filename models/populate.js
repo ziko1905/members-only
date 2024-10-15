@@ -4,7 +4,7 @@ const { connectionString } = require("pg/lib/defaults");
 
 const CREATE_MESSAGES_TABLE = `CREATE TABLE messages (
                            id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                           timestamp DATE,
+                           timestamp TIMESTAMP,
                            title VARCHAR( 63 ),
                            content VARCHAR( 1027 ),
                            author_id INTEGER

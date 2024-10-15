@@ -103,13 +103,20 @@ function loginGet(req, res) {
   });
 }
 
+const isAuthenticated = async (req, res, next) => {
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+  next();
+};
+
 const isMember = async (req, res, next) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/login");
   }
   const member = await usersDb.isMember(req.user.id);
   if (!member) {
-    return res.redirect("/");
+    return res.redirect("/join");
   }
   next();
 };
@@ -129,5 +136,6 @@ module.exports = {
   signupGet,
   signupPost,
   loginGet,
+  isAuthenticated,
   isMember,
 };
