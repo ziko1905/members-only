@@ -1,3 +1,7 @@
+const asyncHandler = require("express-async-handler");
+const usersDb = require("../models/usersDb");
+require("dotenv").config();
+
 function joinClubGet(req, res) {
   if (!req.user) {
     return res.redirect("/signup");
@@ -5,6 +9,21 @@ function joinClubGet(req, res) {
   res.render("join", { title: "Join Club", header: "Its not that easy!" });
 }
 
+// Not validating passcode bcs of flexibility
+const joinClubPost = asyncHandler(async (req, res) => {
+  const match = req.body.passcode == process.env.PASSCODE;
+  if (!match) {
+    return res.render("join", {
+      title: "Join Club",
+      header: "Its really not that easy!",
+      errorMsg: "Wrong passcode!",
+    });
+  }
+  await usersDb.makeMember(req.user.id);
+  res.redirect("/");
+});
+
 module.exports = {
   joinClubGet,
+  joinClubPost,
 };

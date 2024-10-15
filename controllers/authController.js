@@ -87,13 +87,6 @@ const signupPost = [
   }),
 ];
 
-const joinGet = (req, res) => {
-  if (!req.user) {
-    return res.redirect("/login");
-  }
-  res.render("join", { title: "Its not that easy!" });
-};
-
 function getFull() {
   if (arguments.length < 2) throw new Error("Need at least 2 args");
   const full = [...arguments].join(" ");
@@ -108,5 +101,4 @@ function getUsername(email) {
 module.exports = {
   signupGet,
   signupPost,
-  joinGet,
 };

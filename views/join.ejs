@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1><%= header %></h1>
+    <% if (locals.errorMsg) { %>
+        <div class="error-msg"><%= locals.errorMsg %></div>
+    <% } %>
     <form action="/join" method="POST">
         <label for="passcode">Passcode for Club:</label>
         <input type="text" name="passcode" id="passcode">
