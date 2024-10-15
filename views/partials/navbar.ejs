@@ -1,0 +1,16 @@
+<div class="navbar">
+    <a href="/">Messages</a>
+    <% if (locals.user) { %>
+        <a href="/new-message">New message</a>
+        <% if (!locals.user.member) { %>
+            <a href="/join">Join Club</a>
+        <% } %>
+        <% if (!locals.user.admin) {%>
+            <a href="/join-admin">Become Admin</a>
+        <% } %>
+        <a href="/logout">Log Out</a>
+    <% } else { %>
+        <a href="/login">Log In</a>
+        <a href="/signup">Sign Up</a>
+    <% } %>
+</div>
