@@ -1,6 +1,5 @@
 const { Client } = require("pg");
 const fs = require("node:fs");
-const { connectionString } = require("pg/lib/defaults");
 
 const CREATE_MESSAGES_TABLE = `CREATE TABLE messages (
                            id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

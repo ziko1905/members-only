@@ -42,7 +42,10 @@ const becomeAdminPost = asyncHandler(async (req, res) => {
       errorMsg: "Wrong passcode!",
     });
   }
-  await usersDb.makeAdmin(req.user.id);
+  await Promise.all([
+    usersDb.makeMember(req.user.id),
+    usersDb.makeAdmin(req.user.id),
+  ]);
   res.redirect("/");
 });
 
