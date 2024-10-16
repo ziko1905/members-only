@@ -9,7 +9,7 @@
     <%- include("./partials/navbar.ejs") %>
     <h1><%= title %></h1>
     <div class="messages-div">
-    <% locals.messages.forEach((msg, index) => { %>
+    <% locals.messages.filter(msg => (locals.user && locals.user.admin) || !msg.deleted).forEach((msg, index) => { %>
         <div class="msg">
             <h2><%= msg.title %></h2>
             <p><%= msg.content %></p>
@@ -17,7 +17,7 @@
                 <span class="date-span"><%= msg.timestamp %></span>
                 <span class="author-span"><%= msg.authorUserName %></span>
             <% } %>
-            <% if (locals.user && locals.user.admin) { %>
+            <% if (locals.user && locals.user.admin && !msg.deleted) { %>
                 <a href="/delete/<%= msg.id %>">Delete</a>
             <% } %>
         </div>

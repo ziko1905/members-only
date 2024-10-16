@@ -29,4 +29,9 @@ const messagesGet = asyncHandler(async (req, res, next) => {
   next();
 });
 
-module.exports = { newGet, newPost, messagesGet };
+const deletePost = asyncHandler(async (req, res) => {
+  await messagesDb.deleteById(req.params.id);
+  res.redirect("/");
+});
+
+module.exports = { newGet, newPost, messagesGet, deletePost };

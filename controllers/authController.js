@@ -110,16 +110,14 @@ const isAuthenticated = async (req, res, next) => {
   next();
 };
 
-const isMember = async (req, res, next) => {
+const isAdmin = asyncHandler((req, res, next) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/login");
-  }
-  const member = await usersDb.isMember(req.user.id);
-  if (!member) {
-    return res.redirect("/join");
+  } else if (!req.user.admin) {
+    return res.redirect("/");
   }
   next();
-};
+});
 
 function getFull() {
   if (arguments.length < 2) throw new Error("Need at least 2 args");
@@ -137,5 +135,5 @@ module.exports = {
   signupPost,
   loginGet,
   isAuthenticated,
-  isMember,
+  isAdmin,
 };

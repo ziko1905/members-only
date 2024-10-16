@@ -7,7 +7,8 @@ const CREATE_MESSAGES_TABLE = `CREATE TABLE messages (
                            timestamp TIMESTAMP,
                            title VARCHAR( 63 ),
                            content VARCHAR( 1027 ),
-                           author_id INTEGER
+                           author_id INTEGER,
+                           deleted BOOL DEFAULT false
                            );`;
 
 const CREATE_USERS_TABLE = `CREATE TABLE users (

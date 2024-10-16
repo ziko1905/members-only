@@ -16,3 +16,7 @@ module.exports.getMessages = async () => {
   const { rows } = await pool.query(`SELECT * FROM messages;`);
   return rows;
 };
+
+module.exports.deleteById = async (id) => {
+  await pool.query(`UPDATE messages SET deleted = true WHERE id = $1`, [id]);
+};

@@ -13,5 +13,10 @@ router.post(
   authController.isAuthenticated,
   messagesController.newPost
 );
+router.get(
+  "/delete/:id",
+  authController.isAdmin,
+  messagesController.deletePost
+);
 
 module.exports = router;
