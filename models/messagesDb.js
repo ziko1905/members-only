@@ -11,3 +11,8 @@ module.exports.newMessage = async (title, content, timestamp, authorId) => {
     [timestamp, title, content, authorId]
   );
 };
+
+module.exports.getMessages = async () => {
+  const { rows } = await pool.query(`SELECT * FROM messages;`);
+  return rows;
+};

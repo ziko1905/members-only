@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const router = new Router();
+const messagesController = require("../controllers/messagesController");
 
-router.get("/", (req, res) => {
+router.get("/", messagesController.messagesGet, (req, res) => {
   res.render("index", { title: "Homepage" });
 });
 

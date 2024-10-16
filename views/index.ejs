@@ -7,13 +7,21 @@
 </head>
 <body>
     <%- include("./partials/navbar.ejs") %>
-    <%= title %>
-    <% if (!locals.user) { %>
-        <p>Seems like you are not logged in.</p>
-        <a href="/login">Login to see all the messages.</a>
-    <% } %>
-    <%  if (locals.user) { %>
-        <p>Some other logic. Logged in btw.</p>
-    <% } %>
+    <h1><%= title %></h1>
+    <div class="messages-div">
+    <% locals.messages.forEach((msg, index) => { %>
+        <div class="msg">
+            <h2><%= msg.title %></h2>
+            <p><%= msg.content %></p>
+            <% if (locals.user && locals.user.member) { %>
+                <span class="date-span"><%= msg.timestamp %></span>
+                <span class="author-span"><%= msg.authorUserName %></span>
+            <% } %>
+            <% if (locals.user && locals.user.admin) { %>
+                <a href="/delete/<%= msg.id %>">Delete</a>
+            <% } %>
+        </div>
+    <% }) %>
+    </div>
 </body>
 </html>
